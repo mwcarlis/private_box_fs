@@ -39,7 +39,13 @@ std::string decrypt_string(const char *instr, const char *pass_phrase) {
 
 int main(void) {
     std::cout << "It's working?" << std::endl;
+    std::string cypher_text;
+    std::string message;
     private_box_fs_carlis::private_box_fs my_box;
+    cypher_text = encrypt_string("This is a funny test my friend.", "password123");
+    std::cout << &cypher_text << std::endl;
+    message = decrypt_string(cypher_text.c_str(), "password123");
+    std::cout << message << std::endl;
     my_box.open();
     my_box.close();
     return 0;
