@@ -3,10 +3,13 @@
 #### Building ####
 
 ```bash
-# Make everything
+# Build everything
 $ make
 
-# Make Crypto libraries
+# Build the filesystem
+$ make private_fs
+
+# Build Crypto libraries
 $ make crypto
 ```
 
@@ -25,3 +28,5 @@ $ make clean_crypto
 ```bash
 $ ./private_box_fs
 ```
+
+

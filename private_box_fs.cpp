@@ -40,18 +40,18 @@ std::string decrypt_string(const char *instr, const char *pass_phrase) {
 }
 
 int main(void) {
-    private_box_fs_carlis::private_box_fs my_box;
+    //private_box_fs_carlis::private_box_fs my_box;
     std::string cypher_text;
     std::string message;
-    std::cout << "Enter a string:";
+    std::string ret_message;
+    std::cout << "Enter a string: ";
     std::getline(std::cin, message);
-    std::cout << message << std::endl;
     cypher_text = encrypt_string(message.c_str(), "password123");
-    std::cout << &cypher_text << std::endl;
-    message = decrypt_string(cypher_text.c_str(), "password123");
-    std::cout << message << std::endl;
-    my_box.open();
-    my_box.close();
+    std::cout << "CypherText: " << &cypher_text << std::endl;
+    ret_message = decrypt_string(cypher_text.c_str(), "password123");
+    std::cout << "DecodedMessage: " << ret_message << std::endl;
+    //my_box.open();
+    //my_box.close();
     return 0;
 }
 

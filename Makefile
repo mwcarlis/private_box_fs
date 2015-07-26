@@ -2,29 +2,40 @@ CXX = g++
 CXXFLAGS = -Wall -g
 
 CRYPTO_DIR = ./cryptopp562
-CRYPTO_LIB = $(CRYPTO_DIR)/libcryptopp.a
+CRYPT_LIB = libcryptopp.a
+CRYPTO_LIB_PATH = $(CRYPTO_DIR)/$(CRYPT_LIB)
 
 LIBS = -L$(CRYPTO_DIR) -lcryptopp -pthread
 SOURCES = private_box_fs.cpp
+RUNNABLE = private_box_fs.run
 
-private_box_fs: crypto
+
+.PHONY: private_fs
+private_fs: $(RUNNABLE)
+
+$(RUNNABLE): crypto
 	$(CXX) -o $@ $(SOURCES) $(LIBS)
+	@echo "Built the private box filesystem."
 
-crypto: $(CRYPTO_LIB)
+.PHONY: crypto
+crypto: $(CRYPTO_LIB_PATH)
+
+$(CRYPTO_LIB_PATH):
+	@cd $(CRYPTO_DIR); \
+	pwd; \
+	$(MAKE) $(CRYPT_LIB); \
+	cd ..
 	@echo "Built Crypto Libraries"
 
-$(CRYPTO_LIB):
-	@cd cryptopp562; \
-	pwd; \
-	$(MAKE) libcryptopp.a; \
-	cd ..
-
+.PHONY: clean
 clean: clean_crypto
-	rm -f private_box_fs
+	rm -f $(RUNNABLE)
 
+.PHONY: clean_crypto
 clean_crypto:
-	@cd cryptopp562; \
+	@cd $(CRYPTO_DIR); \
 	pwd; \
 	$(MAKE) clean; \
 	cd ..
 	
+
